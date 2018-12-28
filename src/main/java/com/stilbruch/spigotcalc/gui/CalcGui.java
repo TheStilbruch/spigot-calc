@@ -48,6 +48,9 @@ public class CalcGui extends ItemGui {
 
         //Clear button
         setItem(size - 1, getMenuItem(Material.BARRIER, ChatColor.RED + "CLEAR"), clickEvent -> {
+            Player player = (Player) clickEvent.getWhoClicked();
+
+            player.playSound(player.getLocation(), Sound.ENTITY_SHEEP_SHEAR, 1f, 1f);
             new CalcGui(plugin).display((Player) clickEvent.getWhoClicked());
         });
 
@@ -58,15 +61,14 @@ public class CalcGui extends ItemGui {
 
             try {
                 Object rawSolution = plugin.engine.eval(gui.title.replace(DEFAULT_TITLE, ""));
-                double solution = Double.parseDouble(rawSolution.toString());
+                float solution = Float.parseFloat(rawSolution.toString());
 
-                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2f, 1f);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
                 new ItemGui(gui, DEFAULT_TITLE + String.valueOf(solution)).display(player); //Change the title to have the solution
             } catch (ScriptException e) {
-                //TODO: Handler
+                plugin.sendError(player, "Error parsing equation!");
                 e.printStackTrace();
             }
-            
         });
     }
 

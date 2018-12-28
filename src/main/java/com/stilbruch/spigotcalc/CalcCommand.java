@@ -18,12 +18,12 @@ public class CalcCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("Error: Only players can run this command!");
+            plugin.sendMessage(sender, "Only players can run this command!");
             return true;
         }
 
         Player player = (Player) sender;
-        player.sendMessage("Opening the gui...");
+        plugin.sendMessage(player, "Opening the gui...");
         new CalcGui(plugin).display(player);
         return true;
     }
