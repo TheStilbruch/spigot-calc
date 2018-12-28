@@ -1,0 +1,13 @@
+name: SpigotCalc    
+version: 0.0.1
+description: A simple calculator for spigot  
+author: stilbruch
+ 
+main: com.stilbruch.spigotcalc.SpigotCalcPlugin
+
+commands:
+  calc:
+    description: Open the calculator
+    aliases: [calculator]
+    permission: spigotcalc.open
+    usage: /calc
