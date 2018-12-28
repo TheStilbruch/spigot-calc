@@ -17,6 +17,8 @@ import org.bukkit.inventory.ItemStack;
 public class CalcGui extends ItemGui {
 
     private static final String DEFAULT_TITLE = "Calculator: ";
+    private static final Material NUMBER_MATERIAL = Material.LIME_DYE;
+    private static final Material OPERATOR_MATERIAL = Material.GRAY_DYE;
 
     private final SpigotCalcPlugin plugin;
 
@@ -37,15 +39,15 @@ public class CalcGui extends ItemGui {
         //Numbers 1-9
         for (int i = 1;i < 10;i++) {
             int slot = ((i - 1) % 3) + 2 + (((i - 1) / 3) + 1) * 9; // Lot's of maths to get this in the right spot
-            setItem(slot, getMenuItem(Material.EMERALD, String.valueOf(i)), getClickHandler(String.valueOf(i)));
+            setItem(slot, getMenuItem(NUMBER_MATERIAL, String.valueOf(i)), getClickHandler(String.valueOf(i)));
         }
-        setItem(32, getMenuItem(Material.EMERALD, "0"), getClickHandler("0")); //Number 0
+        setItem(32, getMenuItem(NUMBER_MATERIAL, "0"), getClickHandler("0")); //Number 0
 
         //Add the operators
-        setItem(14, getMenuItem(Material.REDSTONE, "+"), getClickHandler("+"));
-        setItem(15, getMenuItem(Material.REDSTONE, "-"), getClickHandler("-"));
-        setItem(23, getMenuItem(Material.REDSTONE, "*"), getClickHandler("*"));
-        setItem(34, getMenuItem(Material.REDSTONE, "/"), getClickHandler("/"));
+        setItem(14, getMenuItem(OPERATOR_MATERIAL, "+"), getClickHandler("+"));
+        setItem(15, getMenuItem(OPERATOR_MATERIAL, "-"), getClickHandler("-"));
+        setItem(23, getMenuItem(OPERATOR_MATERIAL, "*"), getClickHandler("*"));
+        setItem(24, getMenuItem(OPERATOR_MATERIAL, "/"), getClickHandler("/"));
 
         //Clear button
         setItem(size - 1, getMenuItem(Material.BARRIER, ChatColor.RED + "CLEAR"), clickEvent -> {
@@ -56,7 +58,7 @@ public class CalcGui extends ItemGui {
         });
 
         //And finally the equals button
-        setItem(33, getMenuItem(Material.REDSTONE, "="), clickEvent -> {
+        setItem(33, getMenuItem(Material.GOLD_NUGGET, "="), clickEvent -> {
             ItemGui gui = (ItemGui) clickEvent.getInventory().getHolder();
             Player player = (Player) clickEvent.getWhoClicked();
 
@@ -68,6 +70,8 @@ public class CalcGui extends ItemGui {
                 new ItemGui(gui, DEFAULT_TITLE + String.valueOf(solution)).display(player); //Change the title to have the solution
             } catch (ScriptException e) {
                 plugin.sendError(player, "Error parsing equation!");
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
+                player.closeInventory();
                 e.printStackTrace();
             }
         });
