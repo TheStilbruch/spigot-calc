@@ -2,6 +2,8 @@ package com.stilbruch.spigotcalc;
 
 import java.util.function.Consumer;
 
+import com.stilbruch.spigotcalc.gui.ItemGui;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,12 +16,12 @@ public class InventoryListener implements Listener {
         //We only care about when a CalcGui is clicked
         if (!(event.getWhoClicked() instanceof Player) 
             || event.getInventory() == null 
-            || !(event.getInventory().getHolder() instanceof CalcGui)) {
+            || !(event.getInventory().getHolder() instanceof ItemGui)) {
             return;
         }
 
-        CalcGui calcGui = (CalcGui) event.getInventory().getHolder();
-        calcGui.registerClick(event);
+        ItemGui itemGui = (ItemGui) event.getInventory().getHolder();
+        itemGui.registerClick(event);
     }
 
 }

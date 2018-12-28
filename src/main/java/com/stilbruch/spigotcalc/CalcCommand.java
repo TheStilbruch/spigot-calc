@@ -1,5 +1,7 @@
 package com.stilbruch.spigotcalc;
 
+import com.stilbruch.spigotcalc.gui.CalcGui;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

@@ -4,6 +4,7 @@ description: A simple calculator for spigot
 author: stilbruch
  
 main: com.stilbruch.spigotcalc.SpigotCalcPlugin
+api-version: 1.13
 
 commands:
   calc:
