@@ -16,14 +16,32 @@ public class ItemGui implements InventoryHolder {
     
     protected final int rows;
     protected final int size;
+    protected final String title;
     private Inventory inv;
     private Consumer<InventoryClickEvent>[] slotHandlers;
 
-    public ItemGui(int rows) {
+    public ItemGui(int rows, String title) {
         this.rows = rows;
         this.size = rows * 9;
+        this.title = title;
         inv = Bukkit.createInventory(this, size);
         slotHandlers = new Consumer[size];
+    }
+
+    /**
+     * Constructor that copies an old GUI, but with a new title
+     */
+    public ItemGui(ItemGui gui, String title) {
+        this.rows = gui.rows;
+        this.size = gui.size;
+        this.title = title;
+        inv = Bukkit.createInventory(this, size, title);
+        slotHandlers = gui.slotHandlers;
+
+        //Populate the new inventory with all the old 
+        for (int i = 0;i < size;i++) {
+            inv.setItem(i, gui.inv.getItem(i));
+        }
     }
 
     /**
