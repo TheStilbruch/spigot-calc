@@ -92,4 +92,10 @@ public class ItemGui implements InventoryHolder {
             setItem((i * 9) + column, item, clickHandler);
         }
     }
+
+    protected void fillRow(int row, ItemStack item, Consumer<InventoryClickEvent> clickHander) {
+        for (int i = 0;i < 9;i++) {
+            setItem(row * 9 + i, item, clickHander);
+        }
+    }
 }

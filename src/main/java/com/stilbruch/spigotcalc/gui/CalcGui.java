@@ -14,16 +14,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import net.md_5.bungee.api.chat.ClickEvent;
-
 public class CalcGui extends ItemGui {
 
     private static final String DEFAULT_TITLE = "Calculator: ";
 
     private final SpigotCalcPlugin plugin;
 
+    //If i had more time i would remove all the magic values in this function
     public CalcGui(SpigotCalcPlugin plugin) {
-        super(3, DEFAULT_TITLE);
+        super(5, DEFAULT_TITLE);
 
         this.plugin = plugin;
 
@@ -32,19 +31,21 @@ public class CalcGui extends ItemGui {
         fillColumn(1, blankItem(Material.BLACK_STAINED_GLASS_PANE), null);
         fillColumn(7, blankItem(Material.BLACK_STAINED_GLASS_PANE), null);
         fillColumn(8, blankItem(Material.BLACK_STAINED_GLASS_PANE), null);
+        fillRow(0, blankItem(Material.BLACK_STAINED_GLASS_PANE), null);
+        fillRow(4, blankItem(Material.BLACK_STAINED_GLASS_PANE), null);
 
         //Numbers 1-9
         for (int i = 1;i < 10;i++) {
-            int slot = ((i - 1) % 3) + 2 + ((i - 1) / 3) * 9; // Lot's of maths to get this in the right spot
+            int slot = ((i - 1) % 3) + 2 + (((i - 1) / 3) + 1) * 9; // Lot's of maths to get this in the right spot
             setItem(slot, getMenuItem(Material.EMERALD, String.valueOf(i)), getClickHandler(String.valueOf(i)));
         }
-        setItem(23, getMenuItem(Material.EMERALD, "0"), getClickHandler("0")); //Number 0
+        setItem(32, getMenuItem(Material.EMERALD, "0"), getClickHandler("0")); //Number 0
 
         //Add the operators
-        setItem(5, getMenuItem(Material.REDSTONE, "+"), getClickHandler("+"));
-        setItem(6, getMenuItem(Material.REDSTONE, "-"), getClickHandler("-"));
-        setItem(14, getMenuItem(Material.REDSTONE, "*"), getClickHandler("*"));
-        setItem(15, getMenuItem(Material.REDSTONE, "/"), getClickHandler("/"));
+        setItem(14, getMenuItem(Material.REDSTONE, "+"), getClickHandler("+"));
+        setItem(15, getMenuItem(Material.REDSTONE, "-"), getClickHandler("-"));
+        setItem(23, getMenuItem(Material.REDSTONE, "*"), getClickHandler("*"));
+        setItem(34, getMenuItem(Material.REDSTONE, "/"), getClickHandler("/"));
 
         //Clear button
         setItem(size - 1, getMenuItem(Material.BARRIER, ChatColor.RED + "CLEAR"), clickEvent -> {
@@ -55,7 +56,7 @@ public class CalcGui extends ItemGui {
         });
 
         //And finally the equals button
-        setItem(24, getMenuItem(Material.REDSTONE, "="), clickEvent -> {
+        setItem(33, getMenuItem(Material.REDSTONE, "="), clickEvent -> {
             ItemGui gui = (ItemGui) clickEvent.getInventory().getHolder();
             Player player = (Player) clickEvent.getWhoClicked();
 
