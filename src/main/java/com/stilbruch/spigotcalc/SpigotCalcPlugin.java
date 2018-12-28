@@ -7,7 +7,7 @@ public class SpigotCalcPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         //Register the main command
-        this.getCommand("calc").setExecutor(new CalcCommand());
+        this.getCommand("calc").setExecutor(new CalcCommand(this));
 
         //Register listeners
         getServer().getPluginManager().registerEvents(new InventoryListener(), this);

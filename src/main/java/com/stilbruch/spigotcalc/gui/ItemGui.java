@@ -24,7 +24,7 @@ public class ItemGui implements InventoryHolder {
         this.rows = rows;
         this.size = rows * 9;
         this.title = title;
-        inv = Bukkit.createInventory(this, size);
+        inv = Bukkit.createInventory(this, size, title);
         slotHandlers = new Consumer[size];
     }
 

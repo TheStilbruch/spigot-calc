@@ -9,6 +9,12 @@ import org.bukkit.entity.Player;
 
 public class CalcCommand implements CommandExecutor {
 
+    private final SpigotCalcPlugin plugin;
+
+    public CalcCommand(SpigotCalcPlugin plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -18,7 +24,7 @@ public class CalcCommand implements CommandExecutor {
 
         Player player = (Player) sender;
         player.sendMessage("Opening the gui...");
-        new CalcGui().display(player);
+        new CalcGui(plugin).display(player);
         return true;
     }
 
