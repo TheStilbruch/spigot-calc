@@ -29,24 +29,26 @@ public class CalcGui extends ItemGui {
 
         for (int i = 1;i < 10;i++) {
             int slot = ((i - 1) % 3) + ((i - 1) / 3) * 9 + 2; // Lot's of maths to get this in the right spot
-            setItem(slot, getNumberItem(i), getClickHandler(i));
+            setItem(slot, getMenuItem(Material.EMERALD, String.valueOf(i)), getClickHandler(String.valueOf(i)));
         }
+
+        setItem(5, getMenuItem(Material.REDSTONE, "+"), getClickHandler("+"));
     }
 
-    private ItemStack getNumberItem(int number) {
+    private ItemStack getMenuItem(Material mat, String name) {
         return ItemUtils.addName(
-            new ItemStack(Material.EMERALD), 
-            ChatColor.GRAY + "[" + ChatColor.GREEN + String.valueOf(number) + ChatColor.GRAY + "]" //This is a bit messy
+            new ItemStack(mat), 
+            ChatColor.GRAY + "[" + ChatColor.GREEN + name + ChatColor.GRAY + "]" //This is a bit messy
         );
     }
 
-    private Consumer<InventoryClickEvent> getClickHandler(int number) {
+    private Consumer<InventoryClickEvent> getClickHandler(String name) {
         return (Consumer<InventoryClickEvent>) event -> {
             Player player = (Player) event.getWhoClicked();
             ItemGui gui = (ItemGui) event.getInventory().getHolder();
 
             player.playSound(player.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_OFF, 1f, 1f);
-            new ItemGui(gui, gui.title + String.valueOf(number)).display(player); //Basiclly changing the title of the GUI
+            new ItemGui(gui, gui.title + name).display(player); //Basiclly changing the title of the GUI
         };
     }
 
